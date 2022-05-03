@@ -3,7 +3,7 @@
 
 ## Introdução
 
-O GitFlow utileza uma metodologia moderna para desenvolver sistema e gerenciar as etapas do processo, como requesitos do sistema, arquitetura, padrões de codificações etc...
+O GitFlow utiliza uma metodologia moderna para desenvolver sistema e gerenciar as etapas do processo, como requesitos do sistema, arquitetura, padrões de codificações etc...
 O GitFlow é um framework que trabalha junto com o controle de versão do Git, podendo melhorar o controle e desenvolvimento do seu projeto.
 
 ## Workflows (fluxos de trabalho)
@@ -16,7 +16,7 @@ Feature Branch Workflow: É extremamente parecido com o workflow anterior; a dif
 
 ![Feature Branch Workflow](https://static.imasters.com.br/wp-content/uploads/2015/04/git-workflow-feature-branch-1-300x262.png)
 
-Forked Workflow: Esse fluxo é totalmente diferente dos outros citados até agora. Ao invés de termos um repositório central em um servidor, cada desenvolvedor terá um repositório que será seu servidor. Como nos outros fluxos de trabalho, esse fluxo começa com um repositório público oficial armazenado em um servidor. Mas quando um novo desenvolvedor quer começar a trabalhar no projeto, eles não clonam diretamente do repositório oficial. Ao invés disso, eles fazem um fork​ do repositório oficial e criam uma cópia no servidor. Esta nova cópia serve como seu repositório público pessoal, outros desenvolvedores não têm permissão para comitar nele, mas eles podem receber as mudanças a feitas nele (vamos ver por que isso é importante em um próximo momento). Depois de ter criado a sua cópia do no servidor, o desenvolvedor faz um clone para obter uma cópia do seu repositório em sua máquina local. Isto serve como seu ambiente de desenvolvimento privado.
+Forked Workflow: Esse fluxo é totalmente diferente dos outros citados até agora. Ao invés de termos um repositório central em um servidor, cada desenvolvedor terá um repositório que será seu servidor. Como nos outros fluxos de trabalho, esse fluxo começa com um repositório público oficial armazenado em um servidor. Mas quando um novo desenvolvedor quer começar a trabalhar no projeto, eles não clonam diretamente do repositório oficial. Ao invés disso, eles fazem um fork do repositório oficial e criam uma cópia no servidor. Esta nova cópia serve como seu repositório público pessoal, outros desenvolvedores não têm permissão para comitar nele, mas eles podem receber as mudanças a feitas nele (vamos ver por que isso é importante em um próximo momento). Depois de ter criado a sua cópia do no servidor, o desenvolvedor faz um clone para obter uma cópia do seu repositório em sua máquina local. Isto serve como seu ambiente de desenvolvimento privado.
 
 ![Forked Workflow](https://static.imasters.com.br/wp-content/uploads/2015/04/git-workflows-forking-300x258.png)
 
