@@ -23,7 +23,7 @@ Nesta metodologia, passamos a referência de objeto no próprio construtor. Dest
 
 Exemplo como utilizaria o construtor da classe utilizando a metodologia.
 
-`public interface IObjetoEndereco
+`public interface IObjetoEndereco`
     {
         #region Declarar Propriedades e Métodos
 
