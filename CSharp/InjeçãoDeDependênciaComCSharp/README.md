@@ -46,6 +46,7 @@ Para estudarmos essas quatro metodologias, vamos tomar como exemplo um cenário 
 
 Eis aqui o que geralmente encontramos na classe Empresa:
 
+```
 public class Empresa
 {
     private int _cod;
@@ -72,6 +73,8 @@ public class Empresa
     }
 
 }
+```
+
 Analisando o código acima observamos que a classe Empresa possui uma propriedade do tipo Endereco. Neste modelo, utilizamos uma classe concreta para apontar o tipo de nossa propriedade. Isso é um exemplo de um alto acoplamento de componentes, pois criamos aqui uma interdependência e uma referência dentro da classe Empresa que pode nos resultar em problemas.
 
 Vamos resolver esse problema de alto grau de acoplamento utilizando Dependency Injection nos seus 4 modos de implementação:
@@ -82,6 +85,7 @@ Nesta metodologia, passamos a referência de objeto no próprio construtor. Dest
 
 Veja agora como ficaria o construtor da classe utilizando essa metodologia.
 
+```
 public interface IObjetoEndereco
     {
         #region Declarar Propriedades e Métodos
@@ -99,6 +103,9 @@ public class Empresa
         }
 
     }
+
+```
+
 Note o leitor, que não estamos mais utilizando uma propriedade do tipo __Endereco__ na classe Empresa. Nós criamos uma Interface e agora ela é o tipo da propriedade __Endereco__. Vejam que o construtor da classe, recebe um parâmetro do tipo __IObjetoEndereco__, e seta a propriedade privada *_endereco* com o valor deste parâmetro.
 
 A vantagem de utilizar esta metodologia, o cliente que está instanciando um objeto Empresa, decidir qual será o tipo da propriedade Endereço. Vamos supor que no primeiro release do sistema, nossa classe Endereço seja da seguinte forma:
