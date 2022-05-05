@@ -22,15 +22,15 @@ Ao projetar uma aplicação orientada a objeto, devemos sempre nos preocupar em 
 Nesta metodologia, passamos a referência de objeto no próprio construtor. Deste modo, quando criarmos uma instância da classe Empresa, podemos definir o tipo do objeto que queremos para nossa propriedade __Endereco__.
 
 Exemplo como utilizaria o construtor da classe utilizando a metodologia.
-
-`public interface IObjetoEndereco`
+```
+public interface IObjetoEndereco
     {
         #region Declarar Propriedades e Métodos
 
         #endregion
-    }`
+    }
    
-`public class Empresa
+public class Empresa
     {
         private IObjetoEndereco _endereco;
 
@@ -39,4 +39,5 @@ Exemplo como utilizaria o construtor da classe utilizando a metodologia.
             _endereco = objeto;
         }
 
-    }`
+    }
+```
