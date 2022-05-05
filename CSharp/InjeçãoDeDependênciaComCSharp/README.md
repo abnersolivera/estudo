@@ -160,3 +160,114 @@ public class EnderecoPlus : IObjetoEndereco
     }
 }
 ```
+
+Imaginemos agora que nosso projeto é um site, e este site utiliza uma class library, contendo as classes Empresa, Endereco e a Interface IObjetoEndereco. Pois bem, com essa mudança na classe Endereço, utilizando essa metodologia, nós teríamos que modificar apenas os códigos que instanciam a classe Empresa, além claro, de modificar a classe endereço, não sendo necessário modificar a classe Empresa dentro da class library. Antes da modificação da classe nossas chamadas seriam assim:
+
+```
+Endereco objEnd = new Endereco();
+Empresa = new Empresa(objEnd);
+```
+
+Com a mudança solicitada as chamadas ficariam assim:
+
+```
+EnderecoPlus objEndPlus = new EnderecoPlus();
+Empresa = new Empresa(objEndPlus);
+```
+
+Ou seja, não precisaríamos modificar nossa classe base “Empresa”, pois seu construtor espera um objeto que implemente a Interface IObjetoEndereco, e tanto a classe Endereco quanto a classe EnderecoPlus são implementações da Interface IObjetoEndereco, ou seja, o construtor da classe Empresa pode receber qualquer um dos dois.
+
+Essa metodologia não é recomendada para sistemas em que as classes só possam definir construtores vazios, ou seja, onde os construtores das classes não possam receber parâmetros.
+
+## Getter e Setter
+
+Essa metodologia é mais comumente usada para implementar Dependency Injection (DI). Nela a dependência dos objetos é exposta nas propriedades Get e Set das classes. Essa metodologia possui alguns pontos negativos, pois a injeção de dependência nas propriedades Get e Set quebra alguns conceitos e regras do encapsulamento, ou seja, iremos realizar algo que vai contra os preceitos da orientação a objetos.
+
+Segue um exemplo de como implementar essa metodologia:
+
+```
+public class Empresa
+{
+    private IObjetoEndereco _endereco;
+
+    public IObjetoEndereco Endereco
+    {
+        get { return _endereco; }
+        set { _endereco = value; }
+    }
+
+}
+```
+
+Vejam que a propriedade Endereco, trabalha com a Interface IObjetoEndereco para realizar o Get e Set.
+
+Como dito anteriormente, utilizando essa metodologia, deixamos a classe base Empresa livre de referências a classes concretas. Em uma suposta manutenção precisaríamos modificar apenas a classe Empresa e os trechos de código que instanciam e utilizam as propriedades de Empresa.
+
+## Interface Implementation
+
+Nesta metodologia nós implementamos uma interface que ficará em um repositório dentro da camada de IOC (Inversion of Control). Essa Interface declara um método para injetar o objeto na classe principal.
+
+Vamos então criar uma nova Interface chamada IObjetoEnderecoDI, a qual irá declarar um método chamado setEndereco:
+
+```
+public interface IObjetoEnderecoDI
+    {
+        void setEndereco(IObjetoEndereco obj);
+    }
+```
+
+Essa Interface será implementada na classe Empresa. Os códigos clientes que irão instanciar um objeto Empresa poderão utilizar o método setEndereco para injetar o objeto Endereco no objeto Empresa.
+
+Agora vamos modificar nossa classe Empresa para codificar o que foi dito acima.
+
+```
+public class Empresa :IObjetoEnderecoDI
+{
+    private IObjetoEndereco _endereco;
+
+    #region IObjetoEnderecoDI Members
+
+    public void setEndereco(IObjetoEndereco obj)
+    {
+        _endereco = obj;
+    }
+
+    #endregion
+}
+```
+
+Vejam que a classe Empresa agora herda da nossa nova Interface IObjetoEnderecoDI. Agora ela precisa implementar o método setEndereco, e neste método recebemos como parâmetro um objeto do tipo IObjetoEndereco que será utilizado para setar o campo privado _endereco.
+
+## Service Locator
+
+Nesta metodologia a classe que irá agregar um objeto filho utiliza uma classe “Localizadora de Objetos”, para obter a instância correta do objeto filho. Essa classe Localizadora não cria instâncias do objeto filho, ela provê uma metodologia para registrar e achar os serviços que ajudam na criação do objeto.
+
+Vamos ao exemplo. Primeiramente vamos criar a classe que será a Localizadora de Objetos.
+
+```
+static class LocalizadorEndereco
+{
+    public static IObjetoEndereco getEndereco()
+    {
+        throw new NotImplementedException();
+    }
+}
+```
+
+Agora vamos utiliza - lá na classe Empresa
+
+```
+public class Empresa
+{
+    private IObjetoEndereco _endereco;
+
+    public Empresa()
+    {
+        this._endereco = LocalizadorEndereco.getEndereco();
+    }
+}
+```
+
+Veja o leitor que agora nossa classe empresa possui um construtor que chama o Service Locator, para obter a instância do objeto Endereco.
+
+A maior vantagem desta metodologia é a possibilidade de modificarmos o nosso Service Locator a qualquer momento para definirmos os nossos objetos sempre que precisarmos.
